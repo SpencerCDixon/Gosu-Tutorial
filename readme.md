@@ -13,14 +13,32 @@ game from scratch.
 
 ### Prerequisites 
 
-*  Basic undestanding of Ruby Classes
-*  Basic understanding of Modules
+  *  Basic undestanding of Ruby Classes
+  *  Basic understanding of Modules
 
 
 ## Table Of Contents
+  * [Installation](#install)  
   * Getting Started  
   * Understanding Draw & Update  
   * [Using button keys](#keys)  
+
+
+###<a name="install"></a> Installation 
+
+The first step is to install the Gosu Gem:
+```ruby
+gem install gosu
+```
+
+For more help getting Gosu Installed you can visit the
+[homepage.](http://www.libgosu.org/)
+When I initially installed Gosu I had all sorts of errors.  If that happens
+don't freak out too much.  Most likely it's because Gosu is a little bit old an
+d was made for an older version of ruby (1.8, 1.9).  Even with the errors it
+still works fine on my computer when running ruby 2.0.
+
+
 
 
 ```ruby
