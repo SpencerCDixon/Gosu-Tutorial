@@ -1,10 +1,26 @@
+# Getting Started With Gosu
+
+This is a basic tutorial to help Rubyists interested in Gosu/Game Development to
+get started. 
+
+When I was first introduced to Gosu I was extremely intimidated which is why I
+wanted to create this tutorial.  After getting an understanding of the basics I
+realized how simple Gosu really is.
+
+Gosu is a fantastic way to get a deeper understanding of Object Oriented
+Programming.  It's also extremely rewarding being able to create your very own
+game from scratch.  
+
+### Prerequisites 
+
+*  Basic undestanding of Ruby Classes
+*  Basic understanding of Modules
+
+
+## Table Of Contents
   * Getting Started  
   * Understanding Draw & Update  
   * [Using button keys](#keys)  
-
-
- When I was first introduced to Gosu I was extremely intimidated. 
-
 
 
 ```ruby
