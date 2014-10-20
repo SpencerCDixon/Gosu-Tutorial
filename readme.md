@@ -26,6 +26,7 @@ programmer.
   * [Installation](#install)  
   * [Getting Started](#start)  
   * [Draw & Update](#draw_update)  
+  * [Images](#images)  
   * [Using button keys](#keys)  
 
 
@@ -39,8 +40,8 @@ gem install gosu
 For more help getting Gosu Installed you can visit the
 [homepage.](http://www.libgosu.org/)  
 When I initially installed Gosu I had all sorts of errors.  If that happens
-don't freak out too much.  Most likely it's because Gosu is a little bit old an
-d was made for an older version of ruby (1.8, 1.9).  Even with the errors it
+don't freak out too much.  Most likely it's because Gosu is a little bit old and
+was made for an older version of ruby (1.8, 1.9).  Even with the errors it
 still works fine on my computer when running ruby 2.0.
 
 
@@ -131,30 +132,77 @@ my_game = Game.new
 my_game.show
 ```
 
-Go ahead and run your main.rb file so you can see the game screen be displayed to the
+Run your main.rb file so you can see the game screen be displayed to the
 computer screen. Success!  
 
 ###<a name="draw_update"></a> Draw & Update 
 
 Now that we can get a Gosu game set up and a screen drawn we need to go over two
-of the most important concepts of Gosu: draw and update.  Draw and update are
-what allow Gosu display game elements on the screen we just created.
+of the most important concepts of Gosu: #draw and #update.  #Draw and #update are
+what allow Gosu to display game elements on the screen we just created.
 
 A great way to understand draw and update is to think about those old school
 movie cameras that had to be cranked.  They would display a certain number of
 frames of film per second.  Each frame would display the cartoon moving ever so
-slightly. When put through the projector it would create the movie and
-characters would appear to be moving seamlessly.  
+slightly. When put through the projector it would display the movie and
+characters would appear to be moving fluidly.  
 
 **Draw** would be the actual film with the pictures of people/cartoons on it.
 **Update** would be the projector that sends the film through the camera to be
 displayed on the screen.
 
+The default rate at which Gosu operates is 60 frames per second.  What that
+really means is that the Game class's #draw and #update will be called 60 times
+every second.  In order for those to be called though we need to have the
+methods in the class so lets add those in now.
 
 
+```ruby
+require 'gosu'
 
+class Game < Gosu::Window
 
+  SCREEN_HEIGHT = 1000
+  SCREEN_WIDTH = 1000
 
+  def initialize
+    super(SCREEN_WIDTH, SCREEN_HEIGHT, false)
+  end
+
+  def draw
+  end
+
+  def update
+  end
+
+end
+
+Game.new.show
+```
+
+If you want to see this in action (which I highly recommend) you can place a puts
+statement inside the #update method and watch your terminal while the game is
+running.
+
+```ruby
+# rest of Game class
+  def update
+    puts "Testing fps for update"
+  end
+```
+
+In order to draw actually something to the screen we are going to need to create an image
+object that has the ability of being drawn.  
+
+###<a name="images"></a> Images 
+
+Gosu has a special Image class that can be instantiated with:
+```ruby
+Gosu::Image.new(args)
+```
+
+When creating the image the two arguments you need to pass in are the window
+(which is our Game class) and a source for the image.  
 
 
 

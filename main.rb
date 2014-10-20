@@ -12,13 +12,16 @@ class Game < Gosu::Window
     @snake = Snake.new(self, 500, 500)
     # Passes in the window itself for the snake to use,
     # the position will be 500 pixels to the right and 500 pixels downwards (starting from top left)
+    @background = Gosu::Image.new(self, 'http://fc07.deviantart.net/fs70/f/2010/289/5/0/star_background_by_chalax91-d30vpxk.jpg')
   end
 
   def draw
+    @background.draw(0,0,0)
     @snake.draw   
   end
 
   def update
+    puts "testing"
      # Automatically calling #button_up/button_down 60 frames per second
     @snake.update
   end
