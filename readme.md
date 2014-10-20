@@ -25,7 +25,7 @@ programmer.
 ## Table Of Contents
   * [Installation](#install)  
   * [Getting Started](#start)  
-  * Understanding Draw & Update  
+  * [Draw & Update](#draw_update)  
   * [Using button keys](#keys)  
 
 
@@ -120,14 +120,38 @@ false.  There are more advanced settings you can override but for now we will
 keep it simple.  
 
 The last snippet of code instantiates a new instance of the Game class we just
-created and then calls the #show instance method to show the game screen.  Show
-is an instance method that gets inherited from Gosu::Window.  
+created and then calls the #show instance method to display the game screen on your computer.  #Show
+is an instance method that gets inherited from Gosu::Window.  If you're not
+familiar with the #method_name notation it just means that the methods is an
+instance method.  
 
-Another way to write that would be:
+Another way to write that last line would be:
 ```ruby
 my_game = Game.new
 my_game.show
 ```
+
+Go ahead and run your main.rb file so you can see the game screen be displayed to the
+computer screen. Success!  
+
+###<a name="draw_update"></a> Draw & Update 
+
+Now that we can get a Gosu game set up and a screen drawn we need to go over two
+of the most important concepts of Gosu: draw and update.  Draw and update are
+what allow Gosu display game elements on the screen we just created.
+
+A great way to understand draw and update is to think about those old school
+movie cameras that had to be cranked.  They would display a certain number of
+frames of film per second.  Each frame would display the cartoon moving ever so
+slightly. When put through the projector it would create the movie and
+characters would appear to be moving seamlessly.  
+
+**Draw** would be the actual film with the pictures of people/cartoons on it.
+**Update** would be the projector that sends the film through the camera to be
+displayed on the screen.
+
+
+
 
 
 
