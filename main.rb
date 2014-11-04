@@ -12,9 +12,11 @@ class Game < Gosu::Window
     @snake = Snake.new(self, 500, 500)
     # Passes in the window itself for the snake to use,
     # the position will be 500 pixels to the right and 500 pixels downwards (starting from top left)
+    @background = Gosu::Image.new(self, 'img/background2.jpg')
   end
 
   def draw
+    @background.draw(0,0,0)
     @snake.draw   
   end
 
