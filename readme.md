@@ -1,7 +1,7 @@
 # Getting Started With Gosu
 
 This is a basic tutorial to help Rubyists interested in Gosu/Game Development to
-get started. 
+get started.  The game we will be making is Rock, Paper, Scissors.
 
 When I was first introduced to Gosu I was extremely intimidated which is why I
 wanted to create this tutorial.  After getting an understanding of the basics I
