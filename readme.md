@@ -1,11 +1,11 @@
 # Getting Started With Gosu
 
 This is a basic tutorial to help Rubyists interested in Gosu/Game Development to
-get started.  The game we will be making is Rock, Paper, Scissors.
+get started.  The game we will be making is Rock, Paper, Scissors.  
 
-When I was first introduced to Gosu I was extremely intimidated which is why I
+When I was first introduced to Gosu it was an intimidating experience which is why I
 wanted to create this tutorial.  After getting an understanding of the basics I
-realized how simple Gosu really is.
+realized how simple Gosu really is.  
 
 Gosu is a fantastic way to get a deeper understanding of Object Oriented
 Programming.  It's also extremely rewarding being able to create your very own
@@ -13,8 +13,7 @@ game from scratch.
 
 One of my favorite parts of Gosu development is that even though there
 are certain methods you NEED to use most of the logic is left up to the
-programmer.
-
+programmer. 
 
 ### Prerequisites 
 
@@ -39,8 +38,9 @@ gem install gosu
 
 For more help getting Gosu Installed you can visit the
 [homepage.](http://www.libgosu.org/)  
-When I initially installed Gosu I had all sorts of errors.  If that happens
-don't freak out too much.  Most likely it's because Gosu is a little bit old and
+
+Initially installing Gosu I had all sorts of errors.  If that happens
+don't freak.  Most likely it's because Gosu is a little bit old and
 was made for an older version of ruby (1.8, 1.9).  Even with the errors it
 still works fine on my computer when running ruby 2.0.
 
@@ -51,12 +51,12 @@ The first step is to make a new directory to store our new Gosu game in.  Then
 we will change into the directory and start making some more directories and
 files we're going to be using.
 ```
-mkdir gosu_game
-cd gosu_game
+mkdir rps
+cd rps 
 ```
 
-Now inside of our gosu_game directory we will create a few more subdirectories
-in order to stay organized and the main game file that we will use to run our
+Now inside of our rps directory we will create a few more subdirectories
+in order to stay organized. Then the main game file that we will use to run our
 program.
 
 ```
@@ -68,7 +68,7 @@ touch main.rb
 Inside our lib folder we will keep all the classes and modules for our game.
 If this is your first time developing a bigger program then it might seem weird
 to do this.  You're going to have to trust me that splitting files up will help
-keep the game way more organized and easier to work with especially once it
+keep the game organized and easier to work with especially once it
 starts to get bigger.  
 
 Inside our img directory we will keep all images that will be used for the game.  
@@ -76,7 +76,7 @@ Inside our img directory we will keep all images that will be used for the game.
 Finally, open up the main.rb file in the text editor of your choice.  The
 main.rb file will be what we use to start the game.  
 
-Go ahead and copy or type this snippet of code into your main.rb and then I will go over
+Go ahead and type this snippet of code into your main.rb and then I will go over
 each section. 
 
 ```ruby
@@ -144,12 +144,12 @@ what allow Gosu to display game elements on the screen we just created.
 A great way to understand draw and update is to think about those old school
 movie cameras that had to be cranked.  They would display a certain number of
 frames of film per second.  Each frame would display the cartoon moving ever so
-slightly. When put through the projector it would display the movie and
+slightly. When put through the projector the movie and
 characters would appear to be moving fluidly.  
 
 **Draw** would be the actual film with the pictures of people/cartoons on it.
 **Update** would be the projector that sends the film through the camera to be
-displayed on the screen.
+displayed on the screen. (the person cranking)
 
 The default rate at which Gosu operates is 60 frames per second.  What that
 really means is that the Game class's #draw and #update will be called 60 times
@@ -180,9 +180,9 @@ end
 Game.new.show
 ```
 
-If you want to see this in action (which I highly recommend) you can place a puts
+If you want to see this in action (which I recommend) you can place a puts
 statement inside the #update method and watch your terminal while the game is
-running.
+running.  You should see that puts statement over and over.
 
 ```ruby
 # rest of Game class
@@ -191,7 +191,7 @@ running.
   end
 ```
 
-In order to draw actually something to the screen we are going to need to create an image
+In order to actually draw something to the screen we are going to need to create an image
 object that has the ability of being drawn.  
 
 ###<a name="images"></a> Images 
