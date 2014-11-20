@@ -231,6 +231,15 @@ end
 
 Game.new.show
 ```
+Once we instantiate the image to the @background instance variable we now need
+to draw it to the Window using the #draw method.  The numbers that are being
+passed into the draw method are the X, Y, and Z coordinates. It can be very
+counter-intuitive but the left corner of the screen is the (0,0) position.  From
+the top left corner if you want to go right then increase X and to go down we
+increase Y.  Normally going down would make Y be negative which can be a little
+tricky at first.
+
+
 
 
 ###<a name="keys"></a> Keys 
@@ -273,121 +282,10 @@ Game.new.show
 end
 ```
 
-Next adding snake to the main class:
-```ruby
-require 'gosu'
-require_relative 'lib/snake'
-
-class Game < Gosu::Window
-```
-Making snake:
-```ruby
-class Snake
-
-  attr_accessor :move_up, :move_down, :move_left, :move_right
-
-  def initialize(window, x, y)
-    @window = window
-    @x = x
-    @y = y
-
-   @move_up = false
-   @move_down = false
-   @move_left = false
-   @move_right = false
-  end
-
-end
-```
 In order to use keys in your Gosu game there are two major concepts to understand.  Button down and button up.
 
 
-```ruby
-  def button_down(id)
-    case id
-    when Gosu::KbUp
-      @snake.move_up = true
-    when Gosu::KbDown
-      @snake.move_down = true
-    when Gosu::KbLeft
-      @snake.move_left = true
-    when Gosu::KbRight
-      @snake.move_right = true
-    end
-  end
-
-  def button_up(id)
-    case id
-    when Gosu::KbUp
-      @snake.move_up = false
-      puts "Up button_up"
-    when Gosu::KbDown
-      @snake.move_down = false
-      puts "Down button_up"
-    when Gosu::KbLeft
-      @snake.move_left = false
-    when Gosu::KbRight
-      @snake.move_right = false
-    end
-  end
-```
 Next we set the snake to have 4 different moving states. Explanation of what a state is: different modes the object has. Next we need to implement the movement for the snake by giving the snake direction and speed.
-
-```ruby
-class Snake
-
-  attr_accessor :move_up, :move_down, :move_left, :move_right
-
-  def initialize(window, x, y)
-    @window = window
-    @x = x
-    @y = y
-
-   @move_up = false
-   @move_down = false
-   @move_left = false
-   @move_right = false
-
-   @image = Gosu::Image.new(@window, 'img/snake.jpg')
-  end
-
-  def draw
-    @image.draw(@x, @y, 0)
-  end
-
-  def update
-
-  end
-end
-```
-
-Then we setup the main game file to create a new snake and draw it on the screen. The way that we pass in x and y to the snake allows us to adjust where it will appear on the screen when the game starts.
-
-Next we will create methods that adjust its position based on whether not the move_up/down/right/left is switched the true.
-
-
-```ruby
-class Game < Gosu::Window
-
-  SCREEN_HEIGHT = 1000
-  SCREEN_WIDTH = 1000
-
-  def initialize
-    super(SCREEN_WIDTH, SCREEN_HEIGHT, false)
-    @snake = Snake.new(self, 500, 500)
-    # Passes in the window itself for the snake to use,
-    # the position will be 500 pixels to the right and 500 pixels downwards (starting from top left)
-  end
-
-  def draw
-    @snake.draw   
-  end
-
-  def update
-     # Automatically calling #button_up/button_down 60 frames per second
-    @snake.update
-  end
-```
 Next up we need to create a bounding box so that we can test if the snake collides with its food.  If the collision is detected then we will increment the size of the snake and the score of the player.
 
 A nice feature to implement after getting everything setup would be to make the score go up by more the longer the player is alive.
