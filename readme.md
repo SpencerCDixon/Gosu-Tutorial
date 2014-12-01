@@ -12,7 +12,7 @@ Programming.  It's also extremely rewarding being able to create your very own
 game from scratch.  
 
 One of my favorite parts of Gosu development is that even though there
-are certain methods you NEED to use most of the logic is left up to the
+are certain methods you NEED to use most of the logic is left up to YOU the
 programmer. 
 
 ### Prerequisites 
