@@ -205,7 +205,8 @@ When creating the image the two arguments you need to pass in are the window
 (which is our Game class) and a source for the image.  
 
 Inside my image folder is a background image to use for the background of the
-game.
+game. Here is the link to the image: [background
+image](https://www.google.com/search?q=epic+backgrounds&hl=en&biw=1280&bih=1288&site=imghp&tbm=isch&source=lnt&tbs=isz:ex,iszw:1000,iszh:1000#facrc=_&imgdii=_&imgrc=cBttlzY0pt6MZM%253A%3BKpBFEfBcp105gM%3Bhttp%253A%252F%252F1.bp.blogspot.com%252F_WQheqI9LV_s%252FTU0Fu8cntzI%252FAAAAAAAAApk%252Foml5ulPnK_I%252Fs1600%252Fgreen_background.png%3Bhttp%253A%252F%252Fmegarockblog.blogspot.com%252F2011%252F02%252Fmaking-dynamic-signaturetutorial.html%3B1000%3B1000)
 
 ```ruby
 require 'gosu'
