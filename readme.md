@@ -392,7 +392,7 @@ of the Game class we will constantly be checking to see if certain elements have
 collided or intersected.  I already have a Bounding Box class that I made which
 I'll be using for this project. Here it is:
 
-```
+```ruby
 class BoundingBox
   attr_reader :left, :bottom, :width, :height, :right, :top
 
