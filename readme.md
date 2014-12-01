@@ -26,6 +26,7 @@ programmer.
   * [Getting Started](#start)  
   * [Draw & Update](#draw_update)  
   * [Images](#images)  
+  * [Text](#text)  
   * [Using button keys](#keys)  
 
 
@@ -218,7 +219,7 @@ class Game < Gosu::Window
 
   def initialize
     super(SCREEN_WIDTH, SCREEN_HEIGHT, false)
-    @background = Gosu::Image.new(self, 'img/background.jpg')
+    @background = Gosu::Image.new(self, 'img/background.png')
   end
 
   def draw
@@ -239,6 +240,48 @@ counter-intuitive but the left corner of the screen is the (0,0) position.  From
 the top left corner if you want to go right then increase X and to go down we
 increase Y.  Normally going down would make Y be negative which can be a little
 tricky at first.
+
+After getting a background image on the screen lets put some text to display the
+players side and then computer side.  We will finish this section off with
+putting the actual rock, paper, and scissors on the screen then move on to
+explaining how a player would select one.
+
+###<a name="text"></a> Drawing Text Onto Screen
+
+In order to draw text on the screen we first need to instantiate a font just
+like we did with the background image.  Gosu has a built in font module in order
+to do just that.  This is what it looks like:
+
+```ruby
+def initialize
+  super(SCREEN_WIDTH, SCREEN_HEIGHT, false)
+  @background = Gosu::Image.new(self, 'img/background.png')
+  @large_font = Gosu::Font.new(self, "Futura", SCREEN_HEIGHT / 10)
+end
+# ...rest of Game class
+```
+
+When instantiating a new font we pass in 3 parameters: the window, the style of
+font, and the size.  In this case I created @large_font that will be in the
+Futura typeset and the size will be the screen height divided by 10.
+
+Next I am going to create a helper method to draw text onto the screen.  With
+this helper method I will be able to directly call it in the main #draw method
+that the Game class uses.
+
+```ruby
+def draw_text(x, y, text, font, color)
+  font.draw(text, x, y, 3, 1, 1, color)
+end
+```
+The #draw_text method takes 5 parameters: an (x,y) co-ordinate for the top left corner of the
+text, the actual text I want displayed, which font to use, and the color of the
+text.
+
+To learn more about drawing Gosu Fonts check out the
+[documentation.](http://www.libgosu.org/rdoc/Gosu/Font.html)
+
+
 
 
 

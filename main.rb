@@ -1,6 +1,5 @@
 require 'gosu'
 require 'pry'
-require_relative 'lib/snake'
 
 class Game < Gosu::Window
 
@@ -9,46 +8,24 @@ class Game < Gosu::Window
 
   def initialize
     super(SCREEN_WIDTH, SCREEN_HEIGHT, false)
-    @snake = Snake.new(self, 500, 500)
-    # Passes in the window itself for the snake to use,
-    # the position will be 500 pixels to the right and 500 pixels downwards (starting from top left)
-    @background = Gosu::Image.new(self, 'img/background2.jpg')
+    @background = Gosu::Image.new(self, 'img/background.png')
+    @large_font = Gosu::Font.new(self, "Futura", SCREEN_HEIGHT / 20)
   end
 
+  # Mandatory methods in order for gosu to work (draw & update)
   def draw
     @background.draw(0,0,0)
-    @snake.draw   
+    draw_text(80, 170, "Player Choice", @large_font, 0xffffd700)
+    draw_text(650, 170, "Computer Choice", @large_font, 0xffffd700)
   end
 
   def update
      # Automatically calling #button_up/button_down 60 frames per second
-    @snake.update
   end
 
-  def button_down(id)
-    case id
-    when Gosu::KbUp
-      @snake.move_up = true
-    when Gosu::KbDown
-      @snake.move_down = true
-    when Gosu::KbLeft
-      @snake.move_left = true
-    when Gosu::KbRight
-      @snake.move_right = true
-    end
-  end
-
-  def button_up(id)
-    case id
-    when Gosu::KbUp
-      @snake.move_up = false
-    when Gosu::KbDown
-      @snake.move_down = false
-    when Gosu::KbLeft
-      @snake.move_left = false
-    when Gosu::KbRight
-      @snake.move_right = false
-    end
+  # Methods I created to help make the game
+  def draw_text(x, y, text, font, color)
+    font.draw(text, x, y, 3, 1, 1, color)
   end
 
 end
