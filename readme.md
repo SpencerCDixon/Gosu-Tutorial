@@ -419,8 +419,30 @@ I'll require the BoundingBox class in my Game class and then any of my elements
 that I end up using will have a bounding box surrounding them so I can test for
 intersections
 
+Knowing how collision detection works we can go back and look at the Rock class
+to explain how it's being implemented.
 
+```ruby
+class Rock
 
+  attr_reader :state
+  def initialize(x, y, window)
+    @rock_image = Gosu::Image.new(window, 'img/rock.png')
+    @x = x
+    @y = y
+    @state = :unselected
+  end
+
+  def bounds
+    BoundingBox.new(@x, @y, 150, 150)
+  end
+```
+When creating the bounding box for the Rock we pass in the @x and @y
+co-ordinates since those can, and probably will, be changing based on user
+interaction with the rock. For example, when a user selects the rock we will
+probably want to move it to be in the center of the screen.  In order to move it
+we will change what it's @x and @y co-ordinates are. The 150, 150 are the dimensions of the actual
+image of the rock.  These need to be changed based on the size of the image.
 
 
 
