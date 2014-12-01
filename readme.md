@@ -27,6 +27,7 @@ programmer.
   * [Draw & Update](#draw_update)  
   * [Images](#images)  
   * [Text](#text)  
+  * [State & Bounding Boxes](#state_bounding)  
   * [Using button keys](#keys)  
 
 
@@ -356,6 +357,7 @@ end
 
 ###<a name="state_bounding"></a> State And Bounding Boxes
 
+#### State
 In game development state is an extremely useful tool for setting up events.
 Lets say you have a character in a game that can move around when you press
 certain keys on the keyboard.  The initial state for the character could be
@@ -369,6 +371,54 @@ and finally when the user loses the state might change to :lost.
 
 Based on all these different states you can have conditional if statements to
 determine what is being drawn to the screen and what is being updated.
+
+I will be using states frequently moving forward because I have found they help
+me a lot in developing games.  I want to emphasis when working with Gosu just do
+what works best for you.  All that matters in the beginning is that you can get
+things to function, after that you can go back and refactor the code to make it
+more memory efficient/DRY.
+
+#### Bounding
+The next concept that I've found integral to making games is collision detection
+and bounding boxes.  [To learn more about collision detection check this
+out](http://en.wikipedia.org/wiki/Collision_detection). Collision detection is
+the process of identifying when two different elements in your program collide
+with each other.  It could be the user and an element on the screen, a bullet
+and an enemy, a car and a race track, whatever. 
+
+In order to test for these collisions, every element that needs to be tested
+will need to have an imaginary box drawn around it.  Then in the #update method
+of the Game class we will constantly be checking to see if certain elements have
+collided or intersected.  I already have a Bounding Box class that I made which
+I'll be using for this project. Here it is:
+
+```
+class BoundingBox
+  attr_reader :left, :bottom, :width, :height, :right, :top
+
+  def initialize(left, bottom, width, height)
+    @left = left
+    @bottom = bottom
+    @width = width
+    @height = height
+    @right = @left + @width
+    @top = @bottom + @height
+  end
+
+  def collide?(x, y)
+    x >= left && x <= right && y >= bottom && y <= top
+  end
+
+  def intersects?(box)
+    self.right > box.left && self.bottom < box.top && self.left < box.right &&
+self.top > box.bottom
+  end
+end
+```
+I'll require the BoundingBox class in my Game class and then any of my elements
+that I end up using will have a bounding box surrounding them so I can test for
+intersections
+
 
 
 
