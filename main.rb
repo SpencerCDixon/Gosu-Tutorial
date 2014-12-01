@@ -1,6 +1,9 @@
 require 'gosu'
 require 'pry'
 
+require_relative 'lib/bounding_box'
+require_relative 'lib/rock'
+
 class Game < Gosu::Window
 
   SCREEN_HEIGHT = 1000
@@ -10,6 +13,7 @@ class Game < Gosu::Window
     super(SCREEN_WIDTH, SCREEN_HEIGHT, false)
     @background = Gosu::Image.new(self, 'img/background.png')
     @large_font = Gosu::Font.new(self, "Futura", SCREEN_HEIGHT / 20)
+    @rock = Rock.new(80, 300, self)
   end
 
   # Mandatory methods in order for gosu to work (draw & update)
@@ -17,9 +21,11 @@ class Game < Gosu::Window
     @background.draw(0,0,0)
     draw_text(80, 170, "Player Choice", @large_font, 0xffffd700)
     draw_text(650, 170, "Computer Choice", @large_font, 0xffffd700)
+    @rock.draw
   end
 
   def update
+    @rock.update
      # Automatically calling #button_up/button_down 60 frames per second
   end
 

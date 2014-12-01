@@ -256,17 +256,17 @@ to do just that.  This is what it looks like:
 def initialize
   super(SCREEN_WIDTH, SCREEN_HEIGHT, false)
   @background = Gosu::Image.new(self, 'img/background.png')
-  @large_font = Gosu::Font.new(self, "Futura", SCREEN_HEIGHT / 10)
+  @large_font = Gosu::Font.new(self, "Futura", SCREEN_HEIGHT / 20)
 end
 # ...rest of Game class
 ```
 
 When instantiating a new font we pass in 3 parameters: the window, the style of
 font, and the size.  In this case I created @large_font that will be in the
-Futura typeset and the size will be the screen height divided by 10.
+Futura typeset and the size will be the screen height divided by 20.
 
-Next I am going to create a helper method to draw text onto the screen.  With
-this helper method I will be able to directly call it in the main #draw method
+Next I am going to create a helper method to draw text onto the screen.
+ I will be able to directly call this helper method in the main #draw method
 that the Game class uses.
 
 ```ruby
@@ -274,19 +274,107 @@ def draw_text(x, y, text, font, color)
   font.draw(text, x, y, 3, 1, 1, color)
 end
 ```
-The #draw_text method takes 5 parameters: an (x,y) co-ordinate for the top left corner of the
+The #draw_text method I created takes 5 parameters: an (x,y) co-ordinate for the top left corner of the
 text, the actual text I want displayed, which font to use, and the color of the
-text.
+text. There are other ways to draw text to the screen but I've found this to
+work well and keep my code DRY.
 
 To learn more about drawing Gosu Fonts check out the
 [documentation.](http://www.libgosu.org/rdoc/Gosu/Font.html)
 
+Now I am going to use the #draw_text method to separate two sides of the screen.
+The left will have the players choice and the right will have the computers
+choice.  Once we have this text written I can add the rock, paper, and scissor
+elements.
+
+```ruby
+class Game < Gosu::Window
+
+  SCREEN_HEIGHT = 1000
+  SCREEN_WIDTH = 1000
+
+  def initialize
+    super(SCREEN_WIDTH, SCREEN_HEIGHT, false)
+    @background = Gosu::Image.new(self, 'img/background.png')
+    @large_font = Gosu::Font.new(self, "Futura", SCREEN_HEIGHT / 20)
+  end
+
+  # Mandatory methods in order for gosu to work (draw & update)
+  def draw
+    @background.draw(0,0,0)
+    draw_text(80, 170, "Player Choice", @large_font, 0xffffd700)
+    draw_text(650, 170, "Computer Choice", @large_font, 0xffffd700)
+  end
+
+  def update
+     # Automatically calling #button_up/button_down 60 frames per second
+  end
+
+  # Methods I created to help make the game
+  def draw_text(x, y, text, font, color)
+    font.draw(text, x, y, 3, 1, 1, color)
+  end
+
+end
+Game.new.show
+```
+
+In order to keep our code DRY I will now create a separate class for each the
+Rock, Paper, and Scissors.  Here is an example of what the Rock looks like.  It
+instantiates an image, a y and x position, and a state.  There's a lot to this
+and I set it up from past experience of what works from me.  In order to really
+understand why the first iteration of the Rock class looks like this I need to
+explain state and bounding boxes.
+
+```ruby
+class Rock
+
+  attr_reader :state
+  def initialize(x, y, window)
+    @rock_image = Gosu::Image.new(window, 'img/rock.png')
+    @x = x
+    @y = y
+    @state = :unselected
+  end
+
+  def bounds
+    BoundingBox.new(@x, @y, 150, 150)
+  end
+
+  def draw
+    @rock_image.draw(@x, @y, 0)
+  end
+
+  def update
+    if @state == :selected
+      @x = 400
+      @y = 400
+    end
+  end
+end
+```
+
+###<a name="state_bounding"></a> State And Bounding Boxes
+
+In game development state is an extremely useful tool for setting up events.
+Lets say you have a character in a game that can move around when you press
+certain keys on the keyboard.  The initial state for the character could be
+something like :not_moving (notice how I use a symbol to save memory) and when
+the user presses the up arrow key the state changes to :moving_up, etc. 
+
+One example of state I often use is the state of the actual Game class.  For
+example, when the user first starts the game the state of the game is most
+likely going to be :menu.  Once the user starts the game it might be :running,
+and finally when the user loses the state might change to :lost.
+
+Based on all these different states you can have conditional if statements to
+determine what is being drawn to the screen and what is being updated.
 
 
 
 
 
-###<a name="keys"></a> Keys 
+###<a name="keys"></a> Keys & Mouse Interaction
 
 ```ruby
   def draw
