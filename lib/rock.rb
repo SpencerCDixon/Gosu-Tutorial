@@ -1,6 +1,5 @@
 class Rock
-
-  attr_reader :state
+  attr_accessor :state
   def initialize(x, y, window)
     @rock_image = Gosu::Image.new(window, 'img/rock.png')
     @x = x

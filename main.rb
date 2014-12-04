@@ -4,8 +4,10 @@ require 'pry'
 require_relative 'lib/bounding_box'
 require_relative 'lib/rock'
 require_relative 'lib/cursor'
+require_relative 'lib/keys'
 
 class Game < Gosu::Window
+  include Keys
 
   SCREEN_HEIGHT = 1000
   SCREEN_WIDTH = 1000
@@ -31,6 +33,7 @@ class Game < Gosu::Window
 
   def update
     @player_choices.each { |c| c.update }
+    player_picked?
      # Automatically calling #button_up/button_down 60 frames per second
   end
 

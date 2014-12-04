@@ -417,7 +417,7 @@ end
 ```
 I'll require the BoundingBox class in my Game class and then any of my elements
 that I end up using will have a bounding box surrounding them so I can test for
-intersections
+intersections.
 
 Knowing how collision detection works we can go back and look at the Rock class
 to explain how it's being implemented.
@@ -425,7 +425,7 @@ to explain how it's being implemented.
 ```ruby
 class Rock
 
-  attr_reader :state
+  attr_accessor :state
   def initialize(x, y, window)
     @rock_image = Gosu::Image.new(window, 'img/rock.png')
     @x = x
@@ -442,21 +442,13 @@ co-ordinates since those can, and probably will, be changing based on user
 interaction with the rock. For example, when a user selects the rock we will
 probably want to move it to be in the center of the screen.  In order to move it
 we will change what it's @x and @y co-ordinates are. By changing the @x and @y it will change the x and y of where the top left corner of the image is being displayed on the game screen. 
- The 150, 150 are the dimensions of the actual image of the rock.  These need to be changed based on the size of the image.  
-
-
+The 150, 150 are the dimensions of the actual image of the rock.  These need to be changed based on the size of the image.  
 
 ###<a name="keys"></a> Keys & Mouse Interaction
 
+In order to use keys in your Gosu game there are two major concepts to understand.  Button down and button up.
+
 ```ruby
-  def draw
-   
-  end
-
-  def update
-     # Automatically calling #button_up/button_down 60 frames per second
-  end
-
   def button_down(id)
     case id
     when Gosu::KbUp
@@ -485,39 +477,5 @@ we will change what it's @x and @y co-ordinates are. By changing the @x and @y i
 
 end
 ```
-
-In order to use keys in your Gosu game there are two major concepts to understand.  Button down and button up.
-
-
-Next we set the snake to have 4 different moving states. Explanation of what a state is: different modes the object has. Next we need to implement the movement for the snake by giving the snake direction and speed.
-Next up we need to create a bounding box so that we can test if the snake collides with its food.  If the collision is detected then we will increment the size of the snake and the score of the player.
-
-A nice feature to implement after getting everything setup would be to make the score go up by more the longer the player is alive.
-
-```ruby
-class BoundingBox
-  attr_reader :left, :bottom, :width, :height, :right, :top
-
-  def initialize(left, bottom, width, height)
-    @left = left
-    @bottom = bottom
-    @width = width
-    @height = height
-    @right = @left + @width
-    @top = @bottom + @height
-  end
-
-  def collide?(x, y)
-    x >= left && x <= right && y >= bottom && y <= top
-  end
-
-  def intersects?(box)
-    self.right > box.left && self.bottom < box.top && self.left < box.right && self.top > box.bottom
-```
-
-
-
-
-
 
  
