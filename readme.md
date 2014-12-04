@@ -441,8 +441,8 @@ When creating the bounding box for the Rock we pass in the @x and @y
 co-ordinates since those can, and probably will, be changing based on user
 interaction with the rock. For example, when a user selects the rock we will
 probably want to move it to be in the center of the screen.  In order to move it
-we will change what it's @x and @y co-ordinates are. The 150, 150 are the dimensions of the actual
-image of the rock.  These need to be changed based on the size of the image.
+we will change what it's @x and @y co-ordinates are. By changing the @x and @y it will change the x and y of where the top left corner of the image is being displayed on the game screen. 
+ The 150, 150 are the dimensions of the actual image of the rock.  These need to be changed based on the size of the image.  
 
 
 
