@@ -3,6 +3,8 @@ require 'pry'
 
 require_relative 'lib/bounding_box'
 require_relative 'lib/rock'
+require_relative 'lib/paper'
+require_relative 'lib/scissors'
 require_relative 'lib/cursor'
 require_relative 'lib/keys'
 
@@ -18,7 +20,7 @@ class Game < Gosu::Window
     @large_font = Gosu::Font.new(self, "Futura", SCREEN_HEIGHT / 20)
     @cursor = Cursor.new(self, true)
 
-    @player_choices = [Rock.new(80, 300, self)]
+    @player_choices = [Rock.new(80, 300, self), Paper.new(80,475, self), Scissors.new(80, 650, self)]
     @mouse_locations = []
   end
 

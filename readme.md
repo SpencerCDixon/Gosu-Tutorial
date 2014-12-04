@@ -444,6 +444,63 @@ probably want to move it to be in the center of the screen.  In order to move it
 we will change what it's @x and @y co-ordinates are. By changing the @x and @y it will change the x and y of where the top left corner of the image is being displayed on the game screen. 
 The 150, 150 are the dimensions of the actual image of the rock.  These need to be changed based on the size of the image.  
 
+In order to speed things up I'm going to create the classes for paper and
+scissors and post the code below:
+
+```ruby
+class Paper
+  attr_accessor :state
+  def initialize(x, y, window)
+    @paper_image = Gosu::Image.new(window, 'img/paper.png')
+    @x = x
+    @y = y
+    @state = :unselected
+  end
+
+  def bounds
+    BoundingBox.new(@x, @y, 150, 150)
+  end
+
+  def draw
+    @paper_image.draw(@x, @y, 0)
+  end
+
+  def update
+    if @state == :selected
+      @x = 400
+      @y = 400
+    end
+  end
+end
+```
+
+```ruby
+class Scissors
+  attr_accessor :state
+  def initialize(x, y, window)
+    @paper_image = Gosu::Image.new(window, 'img/scissors.png')
+    @x = x
+    @y = y
+    @state = :unselected
+  end
+
+  def bounds
+    BoundingBox.new(@x, @y, 150, 150)
+  end
+
+  def draw
+    @paper_image.draw(@x, @y, 0)
+  end
+
+  def update
+    if @state == :selected
+      @x = 400
+      @y = 400
+    end
+  end
+end
+```
+
 ###<a name="keys"></a> Keys & Mouse Interaction
 
 In order to use keys in your Gosu game there are two major concepts to understand.  Button down and button up.
