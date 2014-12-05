@@ -1,5 +1,4 @@
 require 'gosu'
-require 'pry'
 
 require_relative 'lib/bounding_box'
 require_relative 'lib/rock'

@@ -28,7 +28,8 @@ programmer.
   * [Images](#images)  
   * [Text](#text)  
   * [State & Bounding Boxes](#state_bounding)  
-  * [Using button keys](#keys)  
+  * [Using Mouse & Keys](#keys)  
+  * [Combining Keys & Bounding Boxes](#keys_bounding)  
 
 
 ###<a name="install"></a> Installation 
@@ -503,7 +504,7 @@ end
 
 ###<a name="keys"></a> Keys & Mouse Interaction
 
-In order to use keys in your Gosu game there are two major concepts to understand.  Button down and button up.
+In order to use keys in your Gosu game there are two major concepts to understand: button down and button up.
 Gosu will call the methods #button_down and #button_up 60 frames per second.
 These methods need to be included in our Game class in order for them to be
 called.  Both methods take an id as the parameter.  You can then test what that
@@ -553,4 +554,116 @@ class Game < Gosu::Window
 end
 ```
 
- 
+To use the mouse Gosu has: Gosu::MsLeft and Gosu::MsRight.
+
+###<a name="keys_bounding"></a> Combining Keys & Bounding Boxes
+
+The last concept in order to complete our game will involve combining
+button_down with our bounding boxes on the different images.  Every time a user
+clicks with the mouse the co-ordinates of that click are saved in mouse_x and
+mouse_y.  Knowing that, we can save all the co-ordinates the user clicks into an
+array and then test to see if any of those co-ordinates conflict with our
+bounding boxes.  If they intersect we can change the state of that image to move
+it in the middle of the screen.
+
+Here is what the Keys module will look like:
+
+```ruby
+module Keys
+  def button_down(id)
+    case id
+    when Gosu::MsLeft
+      @mouse_locations << [mouse_x, mouse_y]
+    end
+  end
+end
+```
+
+We include this module into the Game class so that the button_down method gets
+called 60 times a second.  Now every time the user clicks it will be saved into
+our array called @mouse_locations.
+
+Next we need to create a method that checks for the intersections like this:
+
+```ruby
+def player_picked?
+  @player_choices.each do |choice|
+    @mouse_locations.each do |location|
+      if choice.bounds.collide?(location[0], location[1])
+        if choice.state != :selected
+          choice.state = :selected
+        end
+      end
+    end
+  end
+end
+```
+
+The @player_choices contains an instance of Rock, Paper, and Scissors.  Each of
+those have their own respective bounding box.  If any of the users mouse clicks
+collide with one of the bounding boxes the state of that class will change to
+:selected.  When the state is :selected we change the x and y co-ordinates to
+put that image in the center of the screen.
+
+Here is a brief overview of what our entire Game class looks like now:
+```ruby
+require 'gosu'
+
+require_relative 'lib/bounding_box'
+require_relative 'lib/rock'
+require_relative 'lib/paper'
+require_relative 'lib/scissors'
+require_relative 'lib/cursor'
+require_relative 'lib/keys'
+
+class Game < Gosu::Window
+  include Keys
+
+  SCREEN_HEIGHT = 1000
+  SCREEN_WIDTH = 1000
+
+  def initialize
+    super(SCREEN_WIDTH, SCREEN_HEIGHT, false)
+    @background = Gosu::Image.new(self, 'img/background.png')
+    @large_font = Gosu::Font.new(self, "Futura", SCREEN_HEIGHT / 20)
+    @cursor = Cursor.new(self, true)
+
+    @player_choices = [Rock.new(80, 300, self), Paper.new(80,475, self), Scissors.new(80, 650, self)]
+    @mouse_locations = []
+  end
+
+  # Mandatory methods in order for gosu to work (draw & update)
+  def draw
+    @background.draw(0,0,0)
+    @cursor.draw
+    draw_text(80, 170, "Player Choice", @large_font, 0xffffd700)
+    draw_text(650, 170, "Computer Choice", @large_font, 0xffffd700)
+    @player_choices.each { |c| c.draw }
+  end
+
+  def update
+    @player_choices.each { |c| c.update }
+    player_picked?
+     # Automatically calling #button_up/button_down 60 frames per second
+  end
+
+  # Methods I created to help make the game
+  def draw_text(x, y, text, font, color)
+    font.draw(text, x, y, 3, 1, 1, color)
+  end
+
+  def player_picked?
+    @player_choices.each do |choice|
+      @mouse_locations.each do |location|
+        if choice.bounds.collide?(location[0], location[1])
+          if choice.state != :selected
+            choice.state = :selected
+          end
+        end
+      end
+    end
+  end
+
+end
+Game.new.show
+```
