@@ -504,8 +504,26 @@ end
 ###<a name="keys"></a> Keys & Mouse Interaction
 
 In order to use keys in your Gosu game there are two major concepts to understand.  Button down and button up.
+Gosu will call the methods #button_down and #button_up 60 frames per second.
+These methods need to be included in our Game class in order for them to be
+called.  Both methods take an id as the parameter.  You can then test what that
+id is against different keys/mouse strokes.
+
+Because these methods end up get getting pretty lengthy I like to extract them
+into a Keys module and then include it in my Game class.  Here is what they
+would look like put directly into the game class
 
 ```ruby
+class Game < Gosu::Window
+
+# initialization and rest of game class
+
+  def draw
+  end
+
+  def update
+  end
+
   def button_down(id)
     case id
     when Gosu::KbUp
