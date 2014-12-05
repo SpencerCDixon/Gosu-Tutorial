@@ -560,7 +560,7 @@ To use the mouse Gosu has: Gosu::MsLeft and Gosu::MsRight.
 
 The last concept in order to complete our game will involve combining
 button_down with our bounding boxes on the different images.  Every time a user
-clicks with the mouse the co-ordinates of that click are saved in mouse_x and
+clicks with the mouse the co-ordinates of that click is saved in mouse_x and
 mouse_y.  Knowing that, we can save all the co-ordinates the user clicks into an
 array and then test to see if any of those co-ordinates conflict with our
 bounding boxes.  If they intersect we can change the state of that image to move
@@ -667,3 +667,13 @@ class Game < Gosu::Window
 end
 Game.new.show
 ```
+
+There you have it! You now have all the tools needed to make awesome Gosu games.
+At this point I would take everything I've created and do some re-factoring to
+clean it up.  Games can start to get really big and complex so this would also
+be a good time to start looking at the bigger picture and make some design
+decisions.  For example, I probably don't need separate classes for Rock, Paper,
+and Scissors.  I could potentially just have 1 class and pass in the proper img
+url and name of the element.
+
+
