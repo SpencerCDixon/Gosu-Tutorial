@@ -47,6 +47,15 @@ don't freak.  Most likely it's because Gosu is a little bit old and
 was made for an older version of ruby (1.8, 1.9).  Even with the errors it
 still works fine on my computer when running ruby 2.0.
 
+One way to possibly fix the errors is to try running these commands in your
+terminal.  
+```ruby
+brew update
+
+brew install sdl2 libogg libvorbis
+
+gem install gosu
+```
 
 ###<a name="start"></a> Getting Started With Gosu 
 
